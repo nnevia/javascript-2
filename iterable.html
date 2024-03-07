@@ -153,10 +153,47 @@ const pick = (ks, obj) => _.go(
 console.log(pick(['b', 'c', 'z'], obj2));
 // {b: 2, c: 3}
 
+console.clear();
 </script>
 
 8. indexBy
+
+<script>
+  const users = [
+  { id: 5, name: 'AA', age: 35 },
+  { id: 10, name: 'BB', age: 26 },
+  { id: 19, name: 'CC', age: 28 },
+  { id: 23, name: 'DD', age: 34 },
+  { id: 24, name: 'EE', age: 23 },
+];
+
+_.indexBy = (f, iter) =>
+_.reduce((obj, a) => (obj[f(a)] = a, obj), {}, iter);
+
+const users2 = _.indexBy(u => u.id, users);
+console.log(users2);
+
+console.clear();
+</script>
+
 9. indexBy 된 값을 filter 하기
+
+<script>
+console.log(_.filter(({age})=> age >= 30, users));
+
+const users3 = _.go(
+  users2,
+  L.entries,
+  L.filter(([_, {age}]) => age < 30),
+  L.take(2),
+  object
+);
+
+console.log(users3[19])
+
+console.clear();
+</script>
+
 
 </body>
 </html>
