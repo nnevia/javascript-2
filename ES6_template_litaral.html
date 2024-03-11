@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="fx.js"></script>
+</head>
+
+<body>
+<div style-display. none;>
+## 프론트엔드에서 함수형/이터러블/동시성 프로그래밍
+
+1. ES6 템플릿 리터럴 활용
+
+2. 이미지 목록 그리기
+
+3. 경고창 만들기
+  - confirm
+  - Promise 활용
+  - alert
+  - 중복 제거
+
+5. 이미지 동시성 다루기
+
+6. 페이지 띄우기
+</div>
+
+<script>
+/*const a = 10;
+const b = 5;
+console.log(`${a} + ${b} = ${a + b}`);*/
+</script>
+
+<script>
+const $ = {};
+
+$.qs = document.querySelector.bind(document);
+
+$.el = html => {
+  const wrap = document.createElement('div');
+  wrap.innerHTML = html;
+  return wrap.children[0];
+};
+$.append = _.curry((parent, child) => parent.appendChild(child));
+
+</script>
+
+
+<script>
+const Images = {};
+
+Images.fetch = () => new Promise(resolve => setTimeout(() =>  resolve([
+  {name: "HEART", url: 'https://cdn.pixabay.com/photo/2024/03/04/16/07/winter-8612635_1280.jpg'},
+  {name: "하트", url: 'https://cdn.pixabay.com/photo/2024/03/04/16/07/winter-8612635_1280.jpg'},
+  {name: "2", url: 'https://cdn.pixabay.com/photo/2024/03/04/16/07/winter-8612635_1280.jpg'}
+]), 200));
+
+const string = iter => _.reduce((a, b) => `${a}${b}`, iter)
+_.strMap = _.curry(_.pipe(L.map, string));
+
+Images.tmpl = imgs =>`
+<div class='images'>
+  ${_.strMap(img => `
+    <div class="image">
+      <div class="box"><img src="${img.url}" alt=""></div>
+      <div class="name">${img.name}</div>
+    </div>
+`, imgs)}
+  </div>
+`;
+_.go (
+  Images.fetch(),
+  Images.tmpl,
+  $.el,
+  $.append($.qs('body')),
+  console.log);
+
+</script>
+
+</body>
+</html>
